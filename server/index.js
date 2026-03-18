@@ -81,6 +81,7 @@ app.use(express.json());
 
 // ✅ Initialize Resend
 const resend = new Resend(process.env.RESEND_API_KEY);
+console.log("API KEY:", process.env.RESEND_API_KEY);
 
 app.post('/api/contact', async (req, res) => {
   const { name, phone, email, message } = req.body || {};
@@ -101,7 +102,7 @@ Email: ${email}
 
 Message:
 ${message}`
-    });
+    }); 
 
     return res.status(200).json({ status: 'ok' });
   } catch (error) {
