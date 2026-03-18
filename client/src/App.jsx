@@ -240,6 +240,7 @@ export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [formState, setFormState] = useState({
     name: '',
+    phone: '',
     email: '',
     message: ''
   });
@@ -293,7 +294,7 @@ export default function App() {
       }
 
       setStatus({ type: 'success', message: 'Thanks! We will contact you soon.' });
-      setFormState({ name: '', email: '', message: '' });
+      setFormState({ name: '', phone: '', email: '', message: '' });
     } catch (error) {
       setStatus({
         type: 'error',
