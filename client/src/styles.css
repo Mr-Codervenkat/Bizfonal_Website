@@ -797,6 +797,14 @@ a {
   align-items: stretch;
 }
 
+.contact-logo{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+
+}
+
 .contact-form,
 .contact-info {
   background: var(--white);

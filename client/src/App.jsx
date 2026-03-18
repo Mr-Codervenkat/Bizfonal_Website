@@ -10,9 +10,9 @@ import pythonIcon from './assets/tech/python.png';
 import mysqlIcon from './assets/tech/mysql.png';
 import canvaIcon from './assets/tech/canva.png';
 import figmaIcon from './assets/tech/figma.png';
-import productSuite from './assets/showcase/product-suite.png';
-import mobileExperience from './assets/showcase/mobile-experience.png';
-import analyticsHub from './assets/showcase/analytics-hub.png';
+import productSuite from './assets/showcase/product-suites.avif';
+import mobileExperience from './assets/showcase/mobile-experiences.png';
+import analyticsHub from './assets/showcase/analytics-hubs.avif';
 import heroLaptop from './assets/hero/hero-laptop.png';
 import aboutWhoWeAre from './assets/about/who-we-are.png';
 import aboutMission from './assets/about/mission.png';
@@ -376,6 +376,7 @@ export default function App() {
               <img
                 src={heroLaptop}
                 alt="Person working on a laptop illustration"
+                style={{ width: "100%", maxWidth: "600px", height: "auto" }}
               />
             </div>
           </div>
@@ -679,6 +680,17 @@ export default function App() {
                   />
                 </label>
                 <label>
+                  <span>Phone No</span>
+                  <input
+                    type="tel"
+                    name="phone"
+                    placeholder="Your phone number"
+                    value={formState.phone}
+                    onChange={handleChange}
+                    required
+                  />
+                </label>
+                <label>
                   <span>Email</span>
                   <input
                     type="email"
@@ -708,23 +720,34 @@ export default function App() {
                 )}
               </form>
               <div className="contact-info reveal">
-                <h3>Bizfonal Infotech</h3>
+                {/* <h3>Bizfonal Infotech</h3> */}
+                <div className='contact-logo'>
+                  <img
+                    src={logo}
+                    alt="Bizfonal Infotech logo"
+                    className="brand-logo"
+                  />
+                  <span className="brand-name">Bizfonal Infotech</span>
+                </div>
                 <div className='contact-info-detail'>
-                <p>
-                  Email: 
-                  <a href="mailto:bizfonal.infotech@gmail.com">
-                    bizfonal.infotech@gmail.com
-                  </a>
-                </p>
-                <p>
-                  Phone: <a href="tel:6385357693">6385357693</a>
-                </p>
-                <p>
-                  Website:
-                  <a href="http://www.bizfonal.info" target="_blank" rel="noreferrer">
-                    www.bizfonal.info
-                  </a>
-                </p>
+                  <p>
+                    Email : <a href="mailto:bizfonal.infotech@gmail.com">
+                      bizfonal.infotech@gmail.com
+                    </a>
+
+                  </p>
+                  <p>
+                    Phone : <a href="tel:6385357693">6385357693</a>
+                  </p>
+                  <p>
+                    Website : <a href="http://www.bizfonal.info" target="_blank" rel="noreferrer">
+                      www.bizfonal.info
+                    </a>
+
+                  </p>
+                  <p>
+                    Location : <a href="">Chennai, India</a>
+                  </p>
                 </div>
                 <div className="contact-highlight">
                   <p>
