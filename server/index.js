@@ -1,7 +1,7 @@
 ﻿import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
 
 dotenv.config();
 
@@ -14,44 +14,33 @@ app.use(cors({
 
 app.use(express.json());
 
-const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST,
-  port: Number(process.env.SMTP_PORT || 465),
-  secure: process.env.SMTP_SECURE !== 'false',
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS
-  }
-});
+// ✅ Initialize Resend
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 app.post('/api/contact', async (req, res) => {
-  const { name,phone, email, message } = req.body || {};
+  const { name, phone, email, message } = req.body || {};
 
-  if (!name ||!phone || !email || !message) {
+  if (!name || !phone || !email || !message) {
     return res.status(400).json({ error: 'Missing required fields.' });
   }
 
-  if (!process.env.SMTP_HOST || !process.env.SMTP_USER || !process.env.SMTP_PASS) {
-    return res.status(500).json({
-      error: 'Email service is not configured. Please set SMTP credentials.'
-    });
-  }
-
-  const recipient = process.env.RECIPIENT_EMAIL || 'bizfonal.infotech@gmail.com';
-
   try {
-    await transporter.sendMail({
-      from: `Bizfonal Contact <${process.env.FROM_EMAIL || process.env.SMTP_USER}>`,
-      to: recipient,
-      replyTo: email,
+    await resend.emails.send({
+      from: 'onboarding@resend.dev',
+      to: 'bizfonal.infotech@gmail.com',
       subject: `New contact form message from ${name}`,
-      text: `Name: ${name}\nPhone: ${phone}\nEmail: ${email}\n\nMessage:\n${message}`
+      text: `Name: ${name}
+Phone: ${phone}
+Email: ${email}
+
+Message:
+${message}`
     });
 
     return res.status(200).json({ status: 'ok' });
   } catch (error) {
-    console.error('Email send failed:', error);
-    return res.status(500).json({ error: 'Email send failed.' });
+    console.error('Resend error:', error);
+    return res.status(500).json({ error: error.message });
   }
 });
 
