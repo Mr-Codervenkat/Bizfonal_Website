@@ -25,9 +25,9 @@ const transporter = nodemailer.createTransport({
 });
 
 app.post('/api/contact', async (req, res) => {
-  const { name, email, message } = req.body || {};
+  const { name,phone, email, message } = req.body || {};
 
-  if (!name || !email || !message) {
+  if (!name ||!phone || !email || !message) {
     return res.status(400).json({ error: 'Missing required fields.' });
   }
 
@@ -45,7 +45,7 @@ app.post('/api/contact', async (req, res) => {
       to: recipient,
       replyTo: email,
       subject: `New contact form message from ${name}`,
-      text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`
+      text: `Name: ${name}\nPhone: ${phone}\nEmail: ${email}\n\nMessage:\n${message}`
     });
 
     return res.status(200).json({ status: 'ok' });
