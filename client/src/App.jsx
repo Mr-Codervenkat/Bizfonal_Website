@@ -10,6 +10,25 @@ import pythonIcon from './assets/tech/python.png';
 import mysqlIcon from './assets/tech/mysql.png';
 import canvaIcon from './assets/tech/canva.png';
 import figmaIcon from './assets/tech/figma.png';
+import vercelIcon from './assets/tech/vercel.svg';
+import renderIcon from './assets/tech/render.svg';
+import githubIcon from './assets/tech/github.svg';
+import postmanIcon from './assets/tech/postman.png';
+import vscodeIcon from './assets/tech/vscode.png';
+import mongodbIcon from './assets/tech/mongodb.png';
+import emailjsIcon from './assets/tech/emailjs-logo.svg';
+import bootstrapIcon from './assets/tech/bootstrap.png';
+import apiIcon from './assets/tech/api.svg';
+import gitIcon from './assets/tech/git.png';
+import netlifyIcon from './assets/tech/netlify.svg';
+import fastapiIcon from './assets/tech/fastapi.png';
+import flaskIcon from './assets/tech/flask.png';
+import npmIcon from './assets/tech/npm.png';
+import reduxIcon from './assets/tech/redux.png';
+import socketioIcon from './assets/tech/socketio.png';
+import pycharmIcon from './assets/tech/Pycharm.png';
+import AWSIcon from './assets/tech/AWS.png';
+import dockerIcon from './assets/tech/Docker.png';
 import productSuite from './assets/showcase/product-suites.avif';
 import mobileExperience from './assets/showcase/mobile-experiences.png';
 import analyticsHub from './assets/showcase/analytics-hubs.avif';
@@ -29,7 +48,28 @@ const baseTechStack = [
   { name: 'Python', icon: pythonIcon },
   { name: 'MySQL', icon: mysqlIcon },
   { name: 'Canva', icon: canvaIcon },
-  { name: 'Figma', icon: figmaIcon }
+  { name: 'Figma', icon: figmaIcon },
+  { name: 'Vercel', icon: vercelIcon },
+  { name: 'Render', icon: renderIcon },
+  { name: 'GitHub', icon: githubIcon },
+  { name: 'Postman', icon: postmanIcon },
+  { name: 'AWS', icon: AWSIcon },
+  { name: 'Docker', icon: dockerIcon },
+];
+const baseTechStacks = [
+  { name: 'VS Code', icon: vscodeIcon },
+  { name: 'MongoDB', icon: mongodbIcon },
+  { name: 'EmailJS', icon: emailjsIcon },
+  { name: 'Bootstrap', icon: bootstrapIcon },
+  { name: 'API', icon: apiIcon },
+  { name: 'Git', icon: gitIcon },
+  { name: 'Netlify', icon: netlifyIcon },
+  { name: 'FastAPI', icon: fastapiIcon },
+  { name: 'Flask', icon: flaskIcon },
+  { name: 'npm', icon: npmIcon },
+  { name: 'Redux', icon: reduxIcon },
+  { name: 'Socket.io', icon: socketioIcon },
+  { name: 'Pycharm', icon: pycharmIcon }
 ];
 
 const services = [
@@ -239,6 +279,7 @@ const apiBaseUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
   const [formState, setFormState] = useState({
     name: '',
     phone: '',
@@ -248,6 +289,7 @@ export default function App() {
   const [status, setStatus] = useState({ type: 'idle', message: '' });
 
   const techStack = useMemo(() => baseTechStack.concat(baseTechStack), []);
+  const techStacks = useMemo(() => baseTechStacks.concat(baseTechStacks), []);
 
   useEffect(() => {
     const reveals = document.querySelectorAll('.reveal');
@@ -270,6 +312,14 @@ export default function App() {
 
   const handleNavClick = () => {
     setIsMenuOpen(false);
+  };
+
+  const handlePrevSlide = () => {
+    setCurrentSlide((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1));
+  };
+
+  const handleNextSlide = () => {
+    setCurrentSlide((prev) => (prev === testimonials.length - 1 ? 0 : prev + 1));
   };
 
   const handleChange = (event) => {
@@ -582,6 +632,16 @@ export default function App() {
               ))}
             </div>
           </div>
+          <div className="tech-ticker" aria-hidden="true">
+            <div className="tech-track">
+              {techStacks.map((item, index) => (
+                <div className="tech-item" key={`${item.name}-${index}`}>
+                  <img src={item.icon} alt={item.name} />
+                  <span>{item.name}</span>
+                </div>
+              ))}
+            </div>
+          </div>
         </section>
 
         <section className="section alt" id="works" aria-labelledby="works-title">
@@ -620,6 +680,43 @@ export default function App() {
                 Real results delivered for teams that needed clarity, speed, and reliability.
               </p>
             </div>
+            <div className="testimonial-carousel">
+              <div className="carousel-container">
+                <div className="carousel-track" style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
+                  {testimonials.map((item) => (
+                    <article className="testimonial-card reveal" key={item.name}>
+                      <p className="testimonial-quote">"{item.quote}"</p>
+                      <div className="testimonial-person">
+                        <div className="testimonial-avatar">{item.initials}</div>
+                        <div>
+                          <h4>{item.name}</h4>
+                          <p>{item.role}</p>
+                        </div>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              </div>
+              <div className="carousel-controls">
+                <button className="carousel-btn" onClick={handlePrevSlide} aria-label="Previous testimonial">
+                  ←
+                </button>
+                <div className="carousel-dots">
+                  {testimonials.map((_, index) => (
+                    <button
+                      key={index}
+                      className={`dot ${index === currentSlide ? 'active' : ''}`}
+                      onClick={() => setCurrentSlide(index)}
+                      aria-label={`Go to testimonial ${index + 1}`}
+                    />
+                  ))}
+                </div>
+                <button className="carousel-btn" onClick={handleNextSlide} aria-label="Next testimonial">
+                  →
+                </button>
+              </div>
+            </div>
+            {/* Desktop Grid View */}
             <div className="testimonial-grid">
               {testimonials.map((item) => (
                 <article className="testimonial-card reveal" key={item.name}>
