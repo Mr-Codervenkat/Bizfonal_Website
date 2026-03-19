@@ -443,7 +443,7 @@ a {
 .process-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 40px;
+  gap: 64px;
 }
 
 .process-step {
