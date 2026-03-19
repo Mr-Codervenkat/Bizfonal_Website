@@ -17,6 +17,7 @@ import heroLaptop from './assets/hero/hero-laptop.png';
 import aboutWhoWeAre from './assets/about/who-we-are.png';
 import aboutMission from './assets/about/mission.png';
 import aboutVision from './assets/about/vision.png';
+import emailjs from '@emailjs/browser';
 
 const baseTechStack = [
   { name: 'HTML5', icon: htmlIcon },
@@ -276,34 +277,34 @@ export default function App() {
     setFormState((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    setStatus({ type: 'loading', message: 'Sending your message...' });
+ const handleSubmit = (e) => {
+  e.preventDefault();
 
-    try {
-      const response = await fetch(`${apiBaseUrl}/api/contact`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formState)
-      });
+  setStatus({ type: 'loading', message: 'Sending your message...' });
 
-      if (!response.ok) {
-        throw new Error('Message failed');
-      }
-
-      setStatus({ type: 'success', message: 'Thanks! We will contact you soon.' });
-      setFormState({ name: '', phone: '', email: '', message: '' });
-    } catch (error) {
-      setStatus({
-        type: 'error',
-        message:
-          'Sorry, we could not send your message. Please email us directly.'
-      });
-    }
-  };
-
+  emailjs.send(
+    'service_4kyb5it',
+    'template_6368cvf',
+    {
+      name: formState.name,
+      phone: formState.phone,
+      email: formState.email,
+      message: formState.message
+    },
+    'iMzOaDq9sDzGnFyHL'
+  )
+  .then(() => {
+    setStatus({ type: 'success', message: 'Thanks! We will contact you soon.' });
+    setFormState({ name: '', phone: '', email: '', message: '' });
+  })
+  .catch((error) => {
+    console.error("EmailJS Error:", error);
+    setStatus({
+      type: 'error',
+      message: 'Failed to send message. Please try again.'
+    });
+  });
+};
 
   return (
     <div className="page">
