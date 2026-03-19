@@ -11,7 +11,7 @@ import mysqlIcon from './assets/tech/mysql.png';
 import canvaIcon from './assets/tech/canva.png';
 import figmaIcon from './assets/tech/figma.png';
 import vercelIcon from './assets/tech/vercel.svg';
-import renderIcon from './assets/tech/render.svg';
+import renderIcon from './assets/tech/render.png';
 import githubIcon from './assets/tech/github.svg';
 import postmanIcon from './assets/tech/postman.png';
 import vscodeIcon from './assets/tech/vscode.png';
@@ -36,6 +36,12 @@ import heroLaptop from './assets/hero/hero-laptop.png';
 import aboutWhoWeAre from './assets/about/who-we-are.png';
 import aboutMission from './assets/about/mission.png';
 import aboutVision from './assets/about/vision.png';
+import shoppingIcon from './assets/industries/shopping.png';
+import healthcareIcon from './assets/industries/healthcare.png';
+import fintechIcon from './assets/industries/fintech.png';
+import distributionIcon from './assets/industries/distribution.png';
+import applicationIcon from './assets/industries/application.png';
+import techSupportIcon from './assets/industries/tech-support.png';
 import emailjs from '@emailjs/browser';
 
 const baseTechStack = [
@@ -171,12 +177,12 @@ const processSteps = [
 ];
 
 const industries = [
-  'Retail & Ecommerce',
-  'Education',
-  'Healthcare',
-  'Fintech',
-  'Logistics',
-  'Professional Services'
+  { name: 'Retail & Ecommerce', icon: shoppingIcon },
+  { name: 'Education', icon: applicationIcon },
+  { name: 'Healthcare', icon: healthcareIcon },
+  { name: 'Fintech', icon: fintechIcon },
+  { name: 'Logistics', icon: distributionIcon },
+  { name: 'Professional Services', icon: techSupportIcon }
 ];
 
 const showcaseItems = [
@@ -280,6 +286,8 @@ const apiBaseUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [currentServiceIndex, setCurrentServiceIndex] = useState(0);
+  const [displayedText, setDisplayedText] = useState('');
   const [formState, setFormState] = useState({
     name: '',
     phone: '',
@@ -290,6 +298,26 @@ export default function App() {
 
   const techStack = useMemo(() => baseTechStack.concat(baseTechStack), []);
   const techStacks = useMemo(() => baseTechStacks.concat(baseTechStacks), []);
+
+  useEffect(() => {
+    const fullText = services[currentServiceIndex].title;
+    let charIndex = 0;
+
+    const typeTimer = setInterval(() => {
+      if (charIndex < fullText.length) {
+        setDisplayedText(fullText.slice(0, charIndex + 1));
+        charIndex++;
+      } else {
+        clearInterval(typeTimer);
+        setTimeout(() => {
+          setDisplayedText('');
+          setCurrentServiceIndex((prevIndex) => (prevIndex + 1) % services.length);
+        }, 2000);
+      }
+    }, 80);
+
+    return () => clearInterval(typeTimer);
+  }, [currentServiceIndex]);
 
   useEffect(() => {
     const reveals = document.querySelectorAll('.reveal');
@@ -392,10 +420,13 @@ export default function App() {
         <section className="hero" aria-labelledby="hero-title">
           <div className="container hero-grid">
             <div className="hero-content reveal">
-              <p className="eyebrow">Technology Startup</p>
+              
               <h1 id="hero-title">
                 Empowering businesses with modern software and digital solutions.
               </h1>
+              <div className="typewriter-container">
+                <p className="typewriter-text">{displayedText}<span className="cursor"></span></p>
+              </div>
               <p className="hero-subtitle">
                 Bizfonal Infotech partners with ambitious teams to build
                 intelligent web experiences, scalable platforms, and
@@ -510,9 +541,12 @@ export default function App() {
             </div>
             <div className="industry-panel reveal">
               <h3>Industries We Support</h3>
-              <div className="industry-tags">
+              <div className="industry-container">
                 {industries.map((industry) => (
-                  <span key={industry}>{industry}</span>
+                  <div key={industry.name} className="industry-item">
+                    <img src={industry.icon} alt={industry.name} className="industry-icon" />
+                    <span>{industry.name}</span>
+                  </div>
                 ))}
               </div>
             </div>
@@ -890,7 +924,7 @@ export default function App() {
           </div>
           <div className="footer-links">
             <h4>Quick Links</h4>
-            {navLinks.map((link) => (
+            {navLinks.slice(0, 5).map((link) => (
               <a key={link.href} href={link.href} onClick={handleNavClick}>
                 {link.label}
               </a>
@@ -898,19 +932,13 @@ export default function App() {
           </div>
           <div className="footer-contact">
             <h4>Contact</h4>
-            <p>
-              <a href="mailto:bizfonal.infotech@gmail.com">
-                bizfonal.infotech@gmail.com
-              </a>
-            </p>
-            <p>
-              <a href="tel:6385357693">6385357693</a>
-            </p>
-            <p>
-              <a href="http://www.bizfonal.info" target="_blank" rel="noreferrer">
-                www.bizfonal.info
-              </a>
-            </p>
+            <a href="mailto:bizfonal.infotech@gmail.com">
+              bizfonal.infotech@gmail.com
+            </a>
+            <a href="tel:6385357693">6385357693</a>
+            <a href="http://www.bizfonal.info" target="_blank" rel="noreferrer">
+              www.bizfonal.info
+            </a>
           </div>
           <div className="footer-social">
             <h4>Social</h4>
@@ -920,14 +948,21 @@ export default function App() {
                   <path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 8.75h3.96V21H3V8.75ZM9.5 8.75h3.8v1.66h.05c.53-1 1.82-2.06 3.74-2.06 4 0 4.74 2.63 4.74 6.05V21h-3.96v-5.65c0-1.35-.02-3.09-1.88-3.09-1.88 0-2.17 1.47-2.17 2.99V21H9.5V8.75Z" />
                 </svg>
               </a>
-              <a href="#" aria-label="Twitter">
+              <a href="#" aria-label="X (Twitter)">
                 <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M19.89 7.19c.01.18.01.37.01.56 0 5.7-4.34 12.28-12.28 12.28-2.44 0-4.7-.71-6.6-1.93.34.04.68.05 1.03.05 2.02 0 3.88-.69 5.35-1.86-1.88-.03-3.46-1.28-4.01-2.99.26.05.53.08.8.08.39 0 .78-.05 1.14-.15-1.97-.4-3.45-2.14-3.45-4.23v-.05c.58.32 1.25.51 1.96.53-1.16-.77-1.92-2.08-1.92-3.56 0-.78.21-1.52.58-2.15 2.12 2.6 5.28 4.3 8.84 4.48-.07-.31-.11-.63-.11-.96 0-2.3 1.86-4.16 4.16-4.16 1.2 0 2.29.51 3.05 1.32.95-.19 1.84-.53 2.65-1-.31.98-.98 1.81-1.85 2.33.85-.1 1.66-.33 2.41-.66-.57.85-1.29 1.6-2.12 2.2Z" />
+                  <path d="M17.94 4H21.12L13.92 10.62L22.5 20H15.63L10.81 14.96L5.17 20H2L9.58 12.99L1.5 4H8.63L12.86 8.88L18.2 4H17.94ZM16.6 18.25H18.36L7.56 5.74H5.65L16.6 18.25Z" fill="white"/>
                 </svg>
               </a>
               <a href="#" aria-label="Facebook">
                 <svg viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M13.5 9.5H16V6.75c-.43-.06-1.3-.18-2.3-.18-2.28 0-3.84 1.39-3.84 3.95V12H7v3.25h2.86V21h3.35v-5.75h2.76l.44-3.25H13.2v-1.19c0-.94.26-1.31 1.3-1.31Z" />
+                </svg>
+              </a>
+              <a href="#" aria-label="Instagram">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <rect x="2" y="2" width="20" height="20" rx="4.5" fill="none" stroke="white" strokeWidth="1.5"/>
+                  <circle cx="12" cy="12" r="3.5" fill="none" stroke="white" strokeWidth="1.5"/>
+                  <circle cx="18" cy="6" r="0.8" fill="white"/>
                 </svg>
               </a>
             </div>
