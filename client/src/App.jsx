@@ -1,5 +1,6 @@
 ﻿import { useEffect, useMemo, useState } from 'react';
 import logo from './assets/bizfonal-logo.png';
+// import RadialOrbitalTimeline from './components/RadialOrbitalTimeline';
 import htmlIcon from './assets/tech/html5.png';
 import cssIcon from './assets/tech/css3.png';
 import jsIcon from './assets/tech/javascript.png';
@@ -42,6 +43,10 @@ import fintechIcon from './assets/industries/fintech.png';
 import distributionIcon from './assets/industries/distribution.png';
 import applicationIcon from './assets/industries/application.png';
 import techSupportIcon from './assets/industries/tech-support.png';
+import discoverGif from './assets/Process/videoplasty-search-291_512.gif';
+import designGif from './assets/Process/Designer.gif';
+import developGif from './assets/Process/develop process.gif';
+import deployGif from './assets/Process/web deployment - Isometric Concept Lottie Animations.gif';
 import emailjs from '@emailjs/browser';
 
 const baseTechStack = [
@@ -122,13 +127,6 @@ const works = [
   }
 ];
 
-const trustBadges = [
-  'Startup Founders',
-  'Scale-up Teams',
-  'Enterprise Operations',
-  'Digital Agencies',
-  'Product Leaders'
-];
 
 const highlights = [
   {
@@ -157,22 +155,26 @@ const processSteps = [
   {
     step: '01',
     title: 'Discover',
-    description: 'We align on business goals, users, and product requirements.'
+    description: 'We align on business goals, users, and product requirements.',
+    gif: discoverGif
   },
   {
     step: '02',
     title: 'Design',
-    description: 'We craft wireframes, UI systems, and rapid prototypes.'
+    description: 'We craft wireframes, UI systems, and rapid prototypes.',
+    gif: designGif
   },
   {
     step: '03',
     title: 'Develop',
-    description: 'We build performant, secure software with agile delivery.'
+    description: 'We build performant, secure software with agile delivery.',
+    gif: developGif
   },
   {
     step: '04',
     title: 'Deploy',
-    description: 'We launch, monitor, and scale your solution with confidence.'
+    description: 'We launch, monitor, and scale your solution with confidence.',
+    gif: deployGif
   }
 ];
 
@@ -213,23 +215,23 @@ const testimonials = [
   {
     quote:
       'Bizfonal translated our vision into a product that is fast, reliable, and loved by our users.',
-    name: 'Anita Sharma',
+    name: 'Karthik',
     role: 'Founder, FinEdge Labs',
-    initials: 'AS'
+    initials: 'S'
   },
   {
     quote:
       'Their team kept us informed, moved quickly, and delivered a platform that scaled from day one.',
-    name: 'Rahul Mehta',
+    name: 'Rahul',
     role: 'COO, LoopCart',
-    initials: 'RM'
+    initials: 'M'
   },
   {
     quote:
       'The UI is clean, the performance is strong, and the support is proactive. Exactly what we needed.',
-    name: 'Priya Nair',
+    name: 'Mohana Priya',
     role: 'Product Lead, HealthTrack',
-    initials: 'PN'
+    initials: 'N'
   }
 ];
 
@@ -319,14 +321,18 @@ export default function App() {
     return () => clearInterval(typeTimer);
   }, [currentServiceIndex]);
 
+  // Enhanced scroll-triggered animations
   useEffect(() => {
     const reveals = document.querySelectorAll('.reveal');
 
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
+        entries.forEach((entry, index) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
+            // Add stagger effect to multiple reveals
+            setTimeout(() => {
+              entry.target.classList.add('is-visible');
+            }, index * 50);
           }
         });
       },
@@ -334,6 +340,30 @@ export default function App() {
     );
 
     reveals.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
+
+  // Stagger animation for cards
+  useEffect(() => {
+    const staggerItems = document.querySelectorAll('.stagger-card');
+    
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('fade-in-up');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    staggerItems.forEach((el, index) => {
+      el.style.setProperty('--stagger-delay', `${index * 100}ms`);
+      observer.observe(el);
+    });
 
     return () => observer.disconnect();
   }, []);
@@ -386,6 +416,13 @@ export default function App() {
 
   return (
     <div className="page">
+      {/* Aurora Background Effect */}
+      <div className="aurora-bg">
+        <div className="aurora-orb-1"></div>
+        <div className="aurora-orb-2"></div>
+        <div className="aurora-orb-3"></div>
+      </div>
+
       <header className="site-header" id="home">
         <div className="container nav-container">
           <a className="brand" href="#home" onClick={handleNavClick}>
@@ -419,7 +456,7 @@ export default function App() {
       <main>
         <section className="hero" aria-labelledby="hero-title">
           <div className="container hero-grid">
-            <div className="hero-content reveal">
+            <div className="hero-content reveal fade-left">
               
               <h1 id="hero-title">
                 Empowering businesses with modern software and digital solutions.
@@ -455,7 +492,7 @@ export default function App() {
                 </div>
               </div>
             </div>
-            <div className="hero-visual reveal">
+            <div className="hero-visual reveal fade-right">
               <img
                 src={heroLaptop}
                 alt="Person working on a laptop illustration"
@@ -478,7 +515,7 @@ export default function App() {
             </div>
             <div className="showcase-grid">
               {showcaseItems.map((item) => (
-                <article className="showcase-card reveal" key={item.title}>
+                <article className="showcase-card reveal stagger-card hover-lift" key={item.title}>
                   <div className="showcase-image">
                     <img src={item.image} alt={`${item.title} preview`} />
                   </div>
@@ -492,26 +529,6 @@ export default function App() {
                     </div>
                   </div>
                 </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="section trust" aria-labelledby="trust-title">
-          <div className="container">
-            <div className="section-title reveal">
-              <p className="eyebrow">Trusted Partnerships</p>
-              <h2 id="trust-title">Teams that build with Bizfonal.</h2>
-              <p>
-                We collaborate with ambitious founders and organizations that
-                value speed, clarity, and measurable growth.
-              </p>
-            </div>
-            <div className="trust-grid reveal">
-              {trustBadges.map((badge) => (
-                <div className="trust-card" key={badge}>
-                  {badge}
-                </div>
               ))}
             </div>
           </div>
@@ -532,8 +549,8 @@ export default function App() {
               </p>
             </div>
             <div className="feature-grid">
-              {highlights.map((item) => (
-                <article className="feature-card reveal" key={item.title}>
+              {highlights.map((item, index) => (
+                <article className="feature-card reveal stagger-card hover-lift" key={item.title} style={{ animationDelay: `${index * 100}ms` }}>
                   <h3>{item.title}</h3>
                   <p>{item.description}</p>
                 </article>
@@ -542,8 +559,8 @@ export default function App() {
             <div className="industry-panel reveal">
               <h3>Industries We Support</h3>
               <div className="industry-container">
-                {industries.map((industry) => (
-                  <div key={industry.name} className="industry-item">
+                {industries.map((industry, index) => (
+                  <div key={industry.name} className="industry-item stagger-card" style={{ animationDelay: `${index * 80}ms` }}>
                     <img src={industry.icon} alt={industry.name} className="industry-icon" />
                     <span>{industry.name}</span>
                   </div>
@@ -563,10 +580,15 @@ export default function App() {
                 on track.
               </p>
             </div>
+            
+
+            {/* Process Grid - Always Visible */}
             <div className="process-grid">
-              {processSteps.map((step) => (
-                <article className="process-step reveal" key={step.step}>
-                  <div className="process-index">{step.step}</div>
+              {processSteps.map((step, index) => (
+                <article className="process-step reveal stagger-card" key={step.step} style={{ animationDelay: `${index * 120}ms` }}>
+                  <div className="process-gif">
+                    <img src={step.gif} alt={step.title} />
+                  </div>
                   <h3>{step.title}</h3>
                   <p>{step.description}</p>
                 </article>
@@ -576,7 +598,7 @@ export default function App() {
         </section>
 
         <section className="section" id="about" aria-labelledby="about-title">
-          <div className="container">
+          <div className="container" style={{marginTop:'-80px'}}>
             <div className="section-title reveal">
               <p className="eyebrow">About Bizfonal</p>
               <h2 id="about-title">Building future-ready businesses.</h2>
@@ -635,8 +657,8 @@ export default function App() {
               </p>
             </div>
             <div className="card-grid services-grid">
-              {services.map((service) => (
-                <article className="service-card reveal" key={service.title}>
+              {services.map((service, index) => (
+                <article className="service-card reveal stagger-card hover-lift" key={service.title} style={{ animationDelay: `${index * 100}ms` }}>
                   <h3>{service.title}</h3>
                   <p>{service.description}</p>
                 </article>
@@ -678,7 +700,7 @@ export default function App() {
           </div>
         </section>
 
-        <section className="section alt" id="works" aria-labelledby="works-title">
+        {/* <section className="section alt" id="works" aria-labelledby="works-title">
           <div className="container">
             <div className="section-title reveal">
               <p className="eyebrow">Our Works</p>
@@ -703,7 +725,7 @@ export default function App() {
               ))}
             </div>
           </div>
-        </section>
+        </section> */}
 
         <section className="section testimonials" aria-labelledby="testimonials-title">
           <div className="container">
@@ -752,8 +774,8 @@ export default function App() {
             </div>
             {/* Desktop Grid View */}
             <div className="testimonial-grid">
-              {testimonials.map((item) => (
-                <article className="testimonial-card reveal" key={item.name}>
+              {testimonials.map((item, index) => (
+                <article className="testimonial-card reveal stagger-card hover-lift" key={item.name} style={{ animationDelay: `${index * 100}ms` }}>
                   <p className="testimonial-quote">"{item.quote}"</p>
                   <div className="testimonial-person">
                     <div className="testimonial-avatar">{item.initials}</div>
@@ -901,8 +923,8 @@ export default function App() {
               <p>Quick responses about our services and delivery approach.</p>
             </div>
             <div className="faq-grid">
-              {faqs.map((item) => (
-                <details className="faq-item reveal" key={item.question}>
+              {faqs.map((item, index) => (
+                <details className="faq-item reveal stagger-card" key={item.question} name="faq-accordion" style={{ animationDelay: `${index * 80}ms` }}>
                   <summary>{item.question}</summary>
                   <p>{item.answer}</p>
                 </details>
