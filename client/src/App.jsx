@@ -965,7 +965,7 @@ export default function App() {
           <div className="footer-social">
             <h4>Social</h4>
             <div className="social-icons">
-              <a href="#" aria-label="LinkedIn">
+              <a href="https://www.linkedin.com/company/bizfonal-infotech" aria-label="LinkedIn">
                 <svg viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 8.75h3.96V21H3V8.75ZM9.5 8.75h3.8v1.66h.05c.53-1 1.82-2.06 3.74-2.06 4 0 4.74 2.63 4.74 6.05V21h-3.96v-5.65c0-1.35-.02-3.09-1.88-3.09-1.88 0-2.17 1.47-2.17 2.99V21H9.5V8.75Z" />
                 </svg>
@@ -980,7 +980,7 @@ export default function App() {
                   <path d="M13.5 9.5H16V6.75c-.43-.06-1.3-.18-2.3-.18-2.28 0-3.84 1.39-3.84 3.95V12H7v3.25h2.86V21h3.35v-5.75h2.76l.44-3.25H13.2v-1.19c0-.94.26-1.31 1.3-1.31Z" />
                 </svg>
               </a>
-              <a href="#" aria-label="Instagram">
+              <a href="https://www.instagram.com/bizfonal.infotech/" aria-label="Instagram">
                 <svg viewBox="0 0 24 24" aria-hidden="true">
                   <rect x="2" y="2" width="20" height="20" rx="4.5" fill="none" stroke="white" strokeWidth="1.5"/>
                   <circle cx="12" cy="12" r="3.5" fill="none" stroke="white" strokeWidth="1.5"/>
