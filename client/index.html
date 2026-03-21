@@ -3,35 +3,188 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Bizfonal Infotech | Modern Software & Digital Solutions</title>
-    <link rel="icon" type="image/png" sizes="32x32" href="client\src\assets\bizfonal-logo.png">
-    <meta
-      name="description"
-      content="Bizfonal Infotech delivers modern software, web, and digital solutions for ambitious businesses."
-    />
-    <meta name="keywords" content="software development, web development, digital solutions, React, Python, scalable platforms, custom digital products, technology startup, Chennai, India" />
+
+    <!-- ═══════════════════════════════════════
+         PRIMARY META TAGS
+    ═══════════════════════════════════════ -->
+    <title>Bizfonal Infotech | Web Development & Software Solutions – Chennai</title>
+    <meta name="title" content="Bizfonal Infotech | Web Development & Software Solutions – Chennai" />
+    <meta name="description" content="Bizfonal Infotech is a Chennai-based software company delivering modern web development, custom software, web applications, and IT consulting for startups and businesses across India." />
+    <meta name="keywords" content="web development Chennai, software company Chennai, custom software development, web application development, IT consulting, React developer Chennai, Python developer India, Bizfonal Infotech, digital solutions India" />
     <meta name="author" content="Bizfonal Infotech" />
     <meta name="robots" content="index, follow" />
-    <link rel="canonical" href="https://www.bizfonal.info" />
-    <!-- Open Graph / Facebook -->
+    <meta name="theme-color" content="#0f2f7a" />
+    <link rel="canonical" href="https://www.bizfonal.info/" />
+
+    <!-- ═══════════════════════════════════════
+         FAVICON
+    ═══════════════════════════════════════ -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/src/assets/bizfonal-logo.png" />
+    <link rel="apple-touch-icon" href="/src/assets/bizfonal-logo.png" />
+
+    <!-- ═══════════════════════════════════════
+         OPEN GRAPH — WhatsApp, Facebook, LinkedIn
+    ═══════════════════════════════════════ -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://www.bizfonal.info" />
-    <meta property="og:title" content="Bizfonal Infotech | Modern Software & Digital Solutions" />
-    <meta property="og:description" content="Bizfonal Infotech delivers modern software, web, and digital solutions for ambitious businesses." />
-    <meta property="og:image" content="https://www.bizfonal.info/assets/bizfonal-logo.png" />
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://www.bizfonal.info" />
-    <meta property="twitter:title" content="Bizfonal Infotech | Modern Software & Digital Solutions" />
-    <meta property="twitter:description" content="Bizfonal Infotech delivers modern software, web, and digital solutions for ambitious businesses." />
-    <meta property="twitter:image" content="https://www.bizfonal.info/assets/bizfonal-logo.png" />
+    <meta property="og:url" content="https://www.bizfonal.info/" />
+    <meta property="og:title" content="Bizfonal Infotech | Web Development & Software Solutions" />
+    <meta property="og:description" content="We build modern websites, web applications, and custom software for businesses across India. Fast, secure, and scalable digital solutions from Chennai." />
+    <meta property="og:image" content="https://www.bizfonal.info/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Bizfonal Infotech – Web Development & Software Solutions" />
+    <meta property="og:site_name" content="Bizfonal Infotech" />
+    <meta property="og:locale" content="en_IN" />
+
+    <!-- ═══════════════════════════════════════
+         TWITTER / X CARD
+    ═══════════════════════════════════════ -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://www.bizfonal.info/" />
+    <meta name="twitter:title" content="Bizfonal Infotech | Web Development & Software Solutions" />
+    <meta name="twitter:description" content="Modern web development, custom software, and IT consulting for startups and businesses. Based in Chennai, serving clients across India." />
+    <meta name="twitter:image" content="https://www.bizfonal.info/og-image.png" />
+
+    <!-- ═══════════════════════════════════════
+         SCHEMA.ORG STRUCTURED DATA (JSON-LD)
+         Enables Google rich results
+    ═══════════════════════════════════════ -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://www.bizfonal.info/#organization",
+          "name": "Bizfonal Infotech",
+          "url": "https://www.bizfonal.info",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://www.bizfonal.info/src/assets/bizfonal-logo.png",
+            "width": 200,
+            "height": 200
+          },
+          "description": "Bizfonal Infotech is a Chennai-based technology startup delivering modern web development, custom software, and IT consulting solutions for businesses.",
+          "foundingDate": "2024",
+          "email": "bizfonal.infotech@gmail.com",
+          "telephone": "+916385357693",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Chennai",
+            "addressRegion": "Tamil Nadu",
+            "addressCountry": "IN"
+          },
+          "areaServed": {
+            "@type": "Country",
+            "name": "India"
+          },
+          "sameAs": [
+            "https://www.linkedin.com/company/bizfonal-infotech",
+            "https://www.instagram.com/bizfonal.infotech/"
+          ],
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+916385357693",
+            "contactType": "customer service",
+            "email": "bizfonal.infotech@gmail.com",
+            "availableLanguage": ["English", "Tamil"]
+          }
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://www.bizfonal.info/#website",
+          "url": "https://www.bizfonal.info",
+          "name": "Bizfonal Infotech",
+          "publisher": {
+            "@id": "https://www.bizfonal.info/#organization"
+          }
+        },
+        {
+          "@type": "LocalBusiness",
+          "@id": "https://www.bizfonal.info/#localbusiness",
+          "name": "Bizfonal Infotech",
+          "image": "https://www.bizfonal.info/og-image.png",
+          "url": "https://www.bizfonal.info",
+          "telephone": "+916385357693",
+          "email": "bizfonal.infotech@gmail.com",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Chennai",
+            "addressRegion": "Tamil Nadu",
+            "postalCode": "600000",
+            "addressCountry": "IN"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 13.0827,
+            "longitude": 80.2707
+          },
+          "openingHoursSpecification": {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+            "opens": "09:00",
+            "closes": "18:00"
+          },
+          "priceRange": "₹₹",
+          "currenciesAccepted": "INR",
+          "paymentAccepted": "UPI, Bank Transfer",
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Software & Web Development Services",
+            "itemListElement": [
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Website Development",
+                  "description": "High-performance, responsive, and conversion-ready websites."
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Web Application Development",
+                  "description": "Custom applications designed for speed, scale, and clarity."
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Custom Software Development",
+                  "description": "Secure software aligned to your unique business workflows."
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "IT Consulting",
+                  "description": "Strategic guidance to optimize infrastructure and operations."
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Mini Projects",
+                  "description": "Rapid delivery for MVPs, prototypes, and innovation sprints."
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+    </script>
+
+    <!-- ═══════════════════════════════════════
+         FONTS
+    ═══════════════════════════════════════ -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="icon" href="client\src\assets\bizfonal-logo.png">
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Sora:wght@400;600;700&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet" />
   </head>
   <body>
     <div id="root"></div>
