@@ -86,23 +86,23 @@ const baseTechStacks = [
 const services = [
   {
     title: 'Website Development',
-    description: '→ High-performance, responsive, and conversion-ready websites built with modern technologies ensuring scalability and seamless user experience.'
+    description: 'High-performance, responsive, and conversion-ready websites.'
   },
   {
     title: 'Web Application Development',
-    description: '→ Custom applications designed for speed, scale, and clarity with robust architecture and optimized performance for business growth.'
+    description: 'Custom applications designed for speed, scale, and clarity.'
   },
   {
     title: 'Custom Software Development',
-    description: '→ Secure software aligned to your unique business workflows with advanced security standards and reliable system integration capabilities.'
+    description: 'Secure software aligned to your unique business workflows.'
   },
   {
     title: 'Mini Projects',
-    description: '→ Rapid delivery for MVPs, prototypes, and innovation sprints with agile development approach ensuring faster deployment and iteration cycles.'
+    description: 'Rapid delivery for MVPs, prototypes, and innovation sprints.'
   },
   {
-    title: 'SaaS Development',
-    description: '→ Scalable SaaS platforms built for modern businesses with cloud-native architecture ensuring flexibility, reliability, and long-term growth support.'
+    title: 'IT Consulting',
+    description: 'Strategic guidance to optimize infrastructure and operations.'
   }
 ];
 
@@ -301,7 +301,91 @@ export default function App() {
   const techStack = useMemo(() => baseTechStack.concat(baseTechStack), []);
   const techStacks = useMemo(() => baseTechStacks.concat(baseTechStacks), []);
   const [activeShowcaseCard, setActiveShowcaseCard] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const cursorGlowRef = useRef(null);
+  const cursorDotRef = useRef(null);
+  const [countersTriggered, setCountersTriggered] = useState(false);
+  const [counts, setCounts] = useState({ solutions: 0, growth: 0, support247: false });
+  const metricsRef = useRef(null);
+  const [showScrollTop, setShowScrollTop] = useState(false);
   const showcaseRef = useRef(null);
+
+  // Splash screen
+  useEffect(() => {
+    const t = setTimeout(() => setLoading(false), 1500);
+    return () => clearTimeout(t);
+  }, []);
+
+  // Custom cursor — direct DOM to avoid re-render jank
+  useEffect(() => {
+    const glow = cursorGlowRef.current;
+    const dot  = cursorDotRef.current;
+    if (!glow || !dot) return;
+    let glowX = -100, glowY = -100, dotX = -100, dotY = -100;
+    let rafId;
+
+    const move = (e) => {
+      dotX  = e.clientX - 4;
+      dotY  = e.clientY - 4;
+      glowX = e.clientX - 18;
+      glowY = e.clientY - 18;
+      glow.classList.add('active');
+      dot.classList.add('active');
+    };
+    const leave = () => {
+      glow.classList.remove('active');
+      dot.classList.remove('active');
+    };
+
+    const loop = () => {
+      glow.style.transform = `translate(${glowX}px, ${glowY}px)`;
+      dot.style.transform  = `translate(${dotX}px, ${dotY}px)`;
+      rafId = requestAnimationFrame(loop);
+    };
+    rafId = requestAnimationFrame(loop);
+
+    window.addEventListener('mousemove', move);
+    window.addEventListener('mouseleave', leave);
+    return () => {
+      cancelAnimationFrame(rafId);
+      window.removeEventListener('mousemove', move);
+      window.removeEventListener('mouseleave', leave);
+    };
+  }, []);
+
+  // Animated counters triggered on scroll into view
+  useEffect(() => {
+    if (countersTriggered) return;
+    const el = metricsRef.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      obs.disconnect();
+      setCountersTriggered(true);
+      // Animate "10+" solutions
+      let s = 0;
+      const sTimer = setInterval(() => { s += 1; setCounts(c => ({ ...c, solutions: s })); if (s >= 10) clearInterval(sTimer); }, 80);
+      // Animate "10x" growth
+      let g = 0;
+      const gTimer = setInterval(() => { g += 1; setCounts(c => ({ ...c, growth: g })); if (g >= 10) clearInterval(gTimer); }, 80);
+      // "24/7" just flips in after a short delay
+      setTimeout(() => setCounts(c => ({ ...c, support247: true })), 900);
+    }, { threshold: 0.5 });
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [countersTriggered]);
+
+  // Lock body scroll when mobile nav is open
+  useEffect(() => {
+    document.body.style.overflow = isMenuOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [isMenuOpen]);
+
+  useEffect(() => {
+    const handleScroll = () => setShowScrollTop(window.scrollY > 400);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   useEffect(() => {
     const fullText = services[currentServiceIndex].title;
@@ -349,7 +433,7 @@ export default function App() {
   // Stagger animation for cards
   useEffect(() => {
     const staggerItems = document.querySelectorAll('.stagger-card');
-
+    
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -387,37 +471,53 @@ export default function App() {
     setFormState((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+ const handleSubmit = (e) => {
+  e.preventDefault();
 
-    setStatus({ type: 'loading', message: 'Sending your message...' });
+  setStatus({ type: 'loading', message: 'Sending your message...' });
 
-    emailjs.send(
-      'service_4kyb5it',
-      'template_6368cvf',
-      {
-        name: formState.name,
-        phone: formState.phone,
-        email: formState.email,
-        message: formState.message
-      },
-      'iMzOaDq9sDzGnFyHL'
-    )
-      .then(() => {
-        setStatus({ type: 'success', message: 'Thanks! We will contact you soon.' });
-        setFormState({ name: '', phone: '', email: '', message: '' });
-      })
-      .catch((error) => {
-        console.error("EmailJS Error:", error);
-        setStatus({
-          type: 'error',
-          message: 'Failed to send message. Please try again.'
-        });
-      });
-  };
+  emailjs.send(
+    'service_4kyb5it',
+    'template_6368cvf',
+    {
+      name: formState.name,
+      phone: formState.phone,
+      email: formState.email,
+      message: formState.message
+    },
+    'iMzOaDq9sDzGnFyHL'
+  )
+  .then(() => {
+    setStatus({ type: 'success', message: 'Thanks! We will contact you soon.' });
+    setFormState({ name: '', phone: '', email: '', message: '' });
+  })
+  .catch((error) => {
+    console.error("EmailJS Error:", error);
+    setStatus({
+      type: 'error',
+      message: 'Failed to send message. Please try again.'
+    });
+  });
+};
 
   return (
     <div className="page">
+      {/* Splash / loading screen */}
+      {loading && (
+        <div className="splash-screen">
+          <div className="splash-center">
+            <img src={logo} alt="Bizfonal Infotech logo" className="brand-logo splash-logo" />
+            <span className="splash-name">Bizfonal Infotech</span>
+            <div className="splash-bar-track">
+              <div className="splash-bar-fill" />
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Custom cursor glow */}
+      <div ref={cursorGlowRef} className="cursor-glow" aria-hidden="true" />
+      <div ref={cursorDotRef}  className="cursor-dot"  aria-hidden="true" />
       {/* Animated grid background */}
       <div className="grid-bg" aria-hidden="true"></div>
 
@@ -431,23 +531,20 @@ export default function App() {
       <header className="site-header" id="home">
         <div className="container nav-container">
           <a className="brand" href="#home" onClick={handleNavClick}>
-            <img
-              src={logo}
-              alt="Bizfonal Infotech logo"
-              className="brand-logo"
-            />
+            <img src={logo} alt="Bizfonal Infotech logo" className="brand-logo" />
             <span className="brand-name">Bizfonal Infotech</span>
           </a>
-          <nav className={`nav ${isMenuOpen ? 'open' : ''}`} aria-label="Primary">
+
+          {/* Desktop nav */}
+          <nav className="nav nav--desktop" aria-label="Primary">
             {navLinks.map((link) => (
-              <a key={link.href} href={link.href} onClick={handleNavClick}>
-                {link.label}
-              </a>
+              <a key={link.href} href={link.href} onClick={handleNavClick}>{link.label}</a>
             ))}
           </nav>
+
           <button
             className={`nav-toggle ${isMenuOpen ? 'active' : ''}`}
-            aria-label="Open menu"
+            aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={isMenuOpen}
             onClick={() => setIsMenuOpen((prev) => !prev)}
           >
@@ -457,6 +554,47 @@ export default function App() {
           </button>
         </div>
       </header>
+
+      {/* Mobile fullscreen nav overlay */}
+      {isMenuOpen && (
+        <div
+          className="mobile-nav-overlay"
+          onClick={() => setIsMenuOpen(false)}
+          aria-hidden="true"
+        />
+      )}
+      <nav
+        className={`mobile-nav ${isMenuOpen ? 'open' : ''}`}
+        aria-label="Mobile navigation"
+      >
+        <div className="mobile-nav-header">
+          <a className="brand" href="#home" onClick={handleNavClick}>
+            <img src={logo} alt="Bizfonal Infotech" className="brand-logo" />
+            <span className="brand-name">Bizfonal Infotech</span>
+          </a>
+          <button
+            className="mobile-nav-close"
+            onClick={() => setIsMenuOpen(false)}
+            aria-label="Close menu"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+              <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+        </div>
+        <div className="mobile-nav-links">
+          {navLinks.map((link, i) => (
+            <a
+              key={link.href}
+              href={link.href}
+              onClick={handleNavClick}
+              style={{ animationDelay: `${i * 60}ms` }}
+            >
+              {link.label}
+            </a>
+          ))}
+        </div>
+      </nav>
 
       <main>
         <section className="hero" aria-labelledby="hero-title">
@@ -468,7 +606,7 @@ export default function App() {
           <div className="hero-ring-2" aria-hidden="true"></div>
           <div className="container hero-grid">
             <div className="hero-content reveal fade-left">
-
+              
               <h1 id="hero-title">
                 Empowering businesses with modern software and digital solutions.
               </h1>
@@ -488,17 +626,23 @@ export default function App() {
                   Contact Us
                 </a>
               </div>
-              <div className="hero-metrics">
+              <div className="hero-metrics" ref={metricsRef}>
                 <div>
-                  <h3>10+</h3>
+                  <h3 className="counter-num">
+                    <span>{counts.solutions}</span>+
+                  </h3>
                   <p>Solutions Delivered</p>
                 </div>
                 <div>
-                  <h3>10x</h3>
+                  <h3 className="counter-num">
+                    <span>{counts.growth}</span>x
+                  </h3>
                   <p>Growth Enablement</p>
                 </div>
                 <div>
-                  <h3>24/7</h3>
+                  <h3 className={`counter-num ${counts.support247 ? 'counter-flip' : ''}`}>
+                    24/7
+                  </h3>
                   <p>Support Mindset</p>
                 </div>
               </div>
@@ -554,16 +698,6 @@ export default function App() {
 
             {/* Mobile vertical snap-scroll — hidden on desktop */}
             <div className="showcase-vsnap" ref={showcaseRef}>
-              {/* Side progress dots */}
-              <div className="showcase-vdots">
-                {showcaseItems.map((_, i) => (
-                  <span
-                    key={i}
-                    className={`showcase-vdot ${activeShowcaseCard === i ? 'active' : ''}`}
-                  />
-                ))}
-              </div>
-
               <div
                 className="showcase-vtrack"
                 onScroll={(e) => {
@@ -590,6 +724,16 @@ export default function App() {
                       </div>
                     </article>
                   </div>
+                ))}
+              </div>
+
+              {/* Progress dots — below the card */}
+              <div className="showcase-vdots">
+                {showcaseItems.map((_, i) => (
+                  <span
+                    key={i}
+                    className={`showcase-vdot ${activeShowcaseCard === i ? 'active' : ''}`}
+                  />
                 ))}
               </div>
             </div>
@@ -643,7 +787,7 @@ export default function App() {
                 on track.
               </p>
             </div>
-
+            
 
             {/* Process Grid - Always Visible */}
             <div className="process-grid">
@@ -661,7 +805,7 @@ export default function App() {
         </section>
 
         <section className="section showcase" id="about" aria-labelledby="about-title">
-          <div className="container" style={{ marginTop: '-80px' }}>
+          <div className="container">
             <div className="section-title reveal fade-right">
               <p className="eyebrow">About Bizfonal</p>
               <h2 id="about-title">Building future-ready businesses.</h2>
@@ -913,7 +1057,7 @@ export default function App() {
                   <input
                     type="email"
                     name="email"
-                    placeholder="Your Email Address"
+                    placeholder="you@company.com"
                     value={formState.email}
                     onChange={handleChange}
                     required
@@ -967,11 +1111,17 @@ export default function App() {
                     Location : <a href="">Chennai, India</a>
                   </p>
                 </div>
-                <div className="contact-highlight">
-                  <p>
-                    We are ready to support your digital transformation with a
-                    dedicated team.
-                  </p>
+                <div className="contact-map">
+                  <iframe
+                    title="Bizfonal Infotech Location - Chennai, India"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d248849.84916296526!2d80.06892925!3d13.047672050000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a5265ea4f7d3361%3A0x6e61a70b6863d433!2sChennai%2C%20Tamil%20Nadu!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+                    width="100%"
+                    height="220"
+                    style={{ border: 0, borderRadius: '14px' }}
+                    allowFullScreen=""
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                  ></iframe>
                 </div>
               </div>
             </div>
@@ -1035,7 +1185,7 @@ export default function App() {
               </a>
               <a href="#" aria-label="X (Twitter)">
                 <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M17.94 4H21.12L13.92 10.62L22.5 20H15.63L10.81 14.96L5.17 20H2L9.58 12.99L1.5 4H8.63L12.86 8.88L18.2 4H17.94ZM16.6 18.25H18.36L7.56 5.74H5.65L16.6 18.25Z" fill="white" />
+                  <path d="M17.94 4H21.12L13.92 10.62L22.5 20H15.63L10.81 14.96L5.17 20H2L9.58 12.99L1.5 4H8.63L12.86 8.88L18.2 4H17.94ZM16.6 18.25H18.36L7.56 5.74H5.65L16.6 18.25Z" fill="white"/>
                 </svg>
               </a>
               <a href="#" aria-label="Facebook">
@@ -1045,9 +1195,9 @@ export default function App() {
               </a>
               <a href="https://www.instagram.com/bizfonal.infotech/" aria-label="Instagram">
                 <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <rect x="2" y="2" width="20" height="20" rx="4.5" fill="none" stroke="white" strokeWidth="1.5" />
-                  <circle cx="12" cy="12" r="3.5" fill="none" stroke="white" strokeWidth="1.5" />
-                  <circle cx="18" cy="6" r="0.8" fill="white" />
+                  <rect x="2" y="2" width="20" height="20" rx="4.5" fill="none" stroke="white" strokeWidth="1.5"/>
+                  <circle cx="12" cy="12" r="3.5" fill="none" stroke="white" strokeWidth="1.5"/>
+                  <circle cx="18" cy="6" r="0.8" fill="white"/>
                 </svg>
               </a>
             </div>
@@ -1057,6 +1207,16 @@ export default function App() {
           <p>© 2026 Bizfonal Infotech. All rights reserved.</p>
         </div>
       </footer>
+    {/* Scroll to Top Button */}
+      <button
+        className={`scroll-top-btn ${showScrollTop ? 'visible' : ''}`}
+        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        aria-label="Scroll to top"
+      >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <polyline points="18 15 12 9 6 15" />
+        </svg>
+      </button>
     </div>
   );
 }
