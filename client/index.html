@@ -1,152 +1,159 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- ═══════════════════════════════════════
-         PRIMARY META TAGS
-    ═══════════════════════════════════════ -->
-    <title>Bizfonal Infotech | Web Development & Software Solutions – Chennai</title>
-    <meta name="title" content="Bizfonal Infotech | Web Development & Software Solutions – Chennai" />
-    <meta name="description" content="Bizfonal Infotech is a Chennai-based software company delivering modern web development, custom software, web applications, and IT consulting for startups and businesses across India." />
-    <meta name="keywords" content="web development Chennai, software company Chennai, custom software development, web application development, IT consulting, React developer Chennai, Python developer India, Bizfonal Infotech, digital solutions India" />
-    <meta name="author" content="Bizfonal Infotech" />
-    <meta name="robots" content="index, follow" />
-    <meta name="theme-color" content="#0f2f7a" />
-    <link rel="canonical" href="https://bizfonalweb.vercel.app/" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- ═══════════════════════════════════════
-         FAVICON
-    ═══════════════════════════════════════ -->
-    <link rel="icon" type="image/png" sizes="32x32" href="/src/assets/bizfonal-logo.png" />
-    <link rel="apple-touch-icon" href="/src/assets/bizfonal-logo.png" />
+  <!-- ═══════════════════════════════════════
+       PRIMARY META TAGS
+  ═══════════════════════════════════════ -->
+  <title>Bizfonal Infotech | Web Development & Software Solutions – Chennai</title>
+  <meta name="title" content="Bizfonal Infotech | Web Development & Software Solutions – Chennai" />
+  <meta name="description" content="Bizfonal Infotech is a Chennai-based software company delivering modern web development, custom software, web applications, and IT consulting for startups and businesses across India." />
+  <meta name="keywords" content="web development Chennai, software company Chennai, custom software development, web application development, IT consulting, React developer Chennai, Python developer India, Bizfonal Infotech, digital solutions India" />
+  <meta name="author" content="Bizfonal Infotech" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0f2f7a" />
+  <link rel="canonical" href="https://bizfonalweb.vercel.app/" />
 
-    <!-- ═══════════════════════════════════════
-         OPEN GRAPH — WhatsApp, Facebook, LinkedIn
-    ═══════════════════════════════════════ -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://bizfonalweb.vercel.app/" />
-    <meta property="og:title" content="Bizfonal Infotech | Web Development & Software Solutions" />
-    <meta property="og:description" content="We build modern websites, web applications, and custom software for businesses across India. Fast, secure, and scalable digital solutions from Chennai." />
-    <meta property="og:image" content="https://bizfonalweb.vercel.app/og-image.png" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Bizfonal Infotech – Web Development & Software Solutions" />
-    <meta property="og:site_name" content="Bizfonal Infotech" />
-    <meta property="og:locale" content="en_IN" />
+  <!-- ═══════════════════════════════════════
+       FAVICON — must be in /public/ folder
+       File: client/public/bizfonal-logo.png
+  ═══════════════════════════════════════ -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/bizfonal-logo.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/bizfonal-logo.png" />
+  <link rel="apple-touch-icon" href="/bizfonal-logo.png" />
+  <link rel="shortcut icon" href="/bizfonal-logo.png" />
 
-    <!-- ═══════════════════════════════════════
-         TWITTER / X CARD
-    ═══════════════════════════════════════ -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content="https://bizfonalweb.vercel.app/" />
-    <meta name="twitter:title" content="Bizfonal Infotech | Web Development & Software Solutions" />
-    <meta name="twitter:description" content="Modern web development, custom software, and IT consulting for startups and businesses. Based in Chennai, serving clients across India." />
-    <meta name="twitter:image" content="https://bizfonalweb.vercel.app/og-image.png" />
+  <!-- ═══════════════════════════════════════
+       OPEN GRAPH — WhatsApp, Facebook, LinkedIn
+  ═══════════════════════════════════════ -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://bizfonalweb.vercel.app/" />
+  <meta property="og:title" content="Bizfonal Infotech | Web Development & Software Solutions" />
+  <meta property="og:description" content="We build modern websites, web applications, and custom software for businesses across India. Fast, secure, and scalable digital solutions from Chennai." />
+  <meta property="og:image" content="https://bizfonalweb.vercel.app/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Bizfonal Infotech – Web Development & Software Solutions" />
+  <meta property="og:site_name" content="Bizfonal Infotech" />
+  <meta property="og:locale" content="en_IN" />
 
-    <!-- ═══════════════════════════════════════
-         SCHEMA.ORG STRUCTURED DATA (JSON-LD)
-    ═══════════════════════════════════════ -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@graph": [
-        {
-          "@type": "Organization",
-          "@id": "https://bizfonalweb.vercel.app/#organization",
-          "name": "Bizfonal Infotech",
-          "url": "https://bizfonalweb.vercel.app",
-          "logo": {
-            "@type": "ImageObject",
-            "url": "https://bizfonalweb.vercel.app/src/assets/bizfonal-logo.png",
-            "width": 200,
-            "height": 200
-          },
-          "description": "Bizfonal Infotech is a Chennai-based technology startup delivering modern web development, custom software, and IT consulting solutions for businesses.",
-          "foundingDate": "2024",
-          "email": "bizfonal.infotech@gmail.com",
-          "telephone": "+916385357693",
-          "address": {
-            "@type": "PostalAddress",
-            "addressLocality": "Chennai",
-            "addressRegion": "Tamil Nadu",
-            "addressCountry": "IN"
-          },
-          "areaServed": { "@type": "Country", "name": "India" },
-          "sameAs": [
-            "https://www.linkedin.com/company/bizfonal-infotech",
-            "https://www.instagram.com/bizfonal.infotech/"
-          ],
-          "contactPoint": {
-            "@type": "ContactPoint",
-            "telephone": "+916385357693",
-            "contactType": "customer service",
-            "email": "bizfonal.infotech@gmail.com",
-            "availableLanguage": ["English", "Tamil"]
-          }
+  <!-- ═══════════════════════════════════════
+       TWITTER / X CARD
+  ═══════════════════════════════════════ -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://bizfonalweb.vercel.app/" />
+  <meta name="twitter:title" content="Bizfonal Infotech | Web Development & Software Solutions" />
+  <meta name="twitter:description" content="Modern web development, custom software, and IT consulting for startups and businesses. Based in Chennai, serving clients across India." />
+  <meta name="twitter:image" content="https://bizfonalweb.vercel.app/og-image.png" />
+
+  <!-- ═══════════════════════════════════════
+       SCHEMA.ORG STRUCTURED DATA (JSON-LD)
+  ═══════════════════════════════════════ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://bizfonalweb.vercel.app/#website",
+        "url": "https://bizfonalweb.vercel.app/",
+        "name": "Bizfonal Infotech",
+        "alternateName": "Bizfonal",
+        "publisher": { "@id": "https://bizfonalweb.vercel.app/#organization" }
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://bizfonalweb.vercel.app/#organization",
+        "name": "Bizfonal Infotech",
+        "url": "https://bizfonalweb.vercel.app",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://bizfonalweb.vercel.app/bizfonal-logo.png",
+          "width": 200,
+          "height": 200
         },
-        {
-          "@type": "WebSite",
-          "@id": "https://bizfonalweb.vercel.app/#website",
-          "url": "https://bizfonalweb.vercel.app",
-          "name": "Bizfonal Infotech",
-          "publisher": { "@id": "https://bizfonalweb.vercel.app/#organization" }
+        "description": "Bizfonal Infotech is a Chennai-based technology startup delivering modern web development, custom software, and IT consulting solutions for businesses.",
+        "foundingDate": "2024",
+        "email": "bizfonal.infotech@gmail.com",
+        "telephone": "+916385357693",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Chennai",
+          "addressRegion": "Tamil Nadu",
+          "addressCountry": "IN"
         },
-        {
-          "@type": "LocalBusiness",
-          "@id": "https://bizfonalweb.vercel.app/#localbusiness",
-          "name": "Bizfonal Infotech",
-          "image": "https://bizfonalweb.vercel.app/og-image.png",
-          "url": "https://bizfonalweb.vercel.app",
+        "areaServed": { "@type": "Country", "name": "India" },
+        "sameAs": [
+          "https://www.linkedin.com/company/bizfonal-infotech",
+          "https://www.instagram.com/bizfonal.infotech/"
+        ],
+        "contactPoint": {
+          "@type": "ContactPoint",
           "telephone": "+916385357693",
+          "contactType": "customer service",
           "email": "bizfonal.infotech@gmail.com",
-          "address": {
-            "@type": "PostalAddress",
-            "addressLocality": "Chennai",
-            "addressRegion": "Tamil Nadu",
-            "postalCode": "600000",
-            "addressCountry": "IN"
-          },
-          "geo": {
-            "@type": "GeoCoordinates",
-            "latitude": 13.0827,
-            "longitude": 80.2707
-          },
-          "openingHoursSpecification": {
-            "@type": "OpeningHoursSpecification",
-            "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
-            "opens": "09:00",
-            "closes": "18:00"
-          },
-          "priceRange": "₹₹",
-          "currenciesAccepted": "INR",
-          "paymentAccepted": "UPI, Bank Transfer",
-          "hasOfferCatalog": {
-            "@type": "OfferCatalog",
-            "name": "Software & Web Development Services",
-            "itemListElement": [
-              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Website Development", "description": "High-performance, responsive, and conversion-ready websites." } },
-              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Web Application Development", "description": "Custom applications designed for speed, scale, and clarity." } },
-              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Custom Software Development", "description": "Secure software aligned to your unique business workflows." } },
-              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "IT Consulting", "description": "Strategic guidance to optimize infrastructure and operations." } },
-              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Mini Projects", "description": "Rapid delivery for MVPs, prototypes, and innovation sprints." } }
-            ]
-          }
+          "availableLanguage": ["English", "Tamil"]
         }
-      ]
-    }
-    </script>
+      },
+      {
+        "@type": "LocalBusiness",
+        "@id": "https://bizfonalweb.vercel.app/#localbusiness",
+        "name": "Bizfonal Infotech",
+        "image": "https://bizfonalweb.vercel.app/bizfonal-logo.png",
+        "url": "https://bizfonalweb.vercel.app",
+        "telephone": "+916385357693",
+        "email": "bizfonal.infotech@gmail.com",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Chennai",
+          "addressRegion": "Tamil Nadu",
+          "postalCode": "600000",
+          "addressCountry": "IN"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 13.0827,
+          "longitude": 80.2707
+        },
+        "openingHoursSpecification": {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+          "opens": "09:00",
+          "closes": "18:00"
+        },
+        "priceRange": "₹₹",
+        "currenciesAccepted": "INR",
+        "paymentAccepted": "UPI, Bank Transfer",
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Software & Web Development Services",
+          "itemListElement": [
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Website Development", "description": "High-performance, responsive, and conversion-ready websites." } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Web Application Development", "description": "Custom applications designed for speed, scale, and clarity." } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Custom Software Development", "description": "Secure software aligned to your unique business workflows." } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "IT Consulting", "description": "Strategic guidance to optimize infrastructure and operations." } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Mini Projects", "description": "Rapid delivery for MVPs, prototypes, and innovation sprints." } }
+          ]
+        }
+      }
+    ]
+  }
+  </script>
 
-    <!-- ═══════════════════════════════════════
-         FONTS
-    ═══════════════════════════════════════ -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet" />
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+  <!-- ═══════════════════════════════════════
+       FONTS
+  ═══════════════════════════════════════ -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
+</body>
+
 </html>

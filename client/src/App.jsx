@@ -1102,7 +1102,7 @@ export default function App() {
                     Phone : <a href="tel:6385357693">6385357693</a>
                   </p>
                   <p>
-                    Website : <a href="http://www.bizfonal.info" target="_blank" rel="noreferrer">
+                    Website : <a href="https://bizfonalweb.vercel.app/" target="_blank" rel="noreferrer">
                       www.bizfonal.info
                     </a>
 
@@ -1171,7 +1171,7 @@ export default function App() {
               bizfonal.infotech@gmail.com
             </a>
             <a href="tel:6385357693">6385357693</a>
-            <a href="http://www.bizfonal.info" target="_blank" rel="noreferrer">
+            <a href="https://bizfonalweb.vercel.app/" target="_blank" rel="noreferrer">
               www.bizfonal.info
             </a>
           </div>
@@ -1183,12 +1183,12 @@ export default function App() {
                   <path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 8.75h3.96V21H3V8.75ZM9.5 8.75h3.8v1.66h.05c.53-1 1.82-2.06 3.74-2.06 4 0 4.74 2.63 4.74 6.05V21h-3.96v-5.65c0-1.35-.02-3.09-1.88-3.09-1.88 0-2.17 1.47-2.17 2.99V21H9.5V8.75Z" />
                 </svg>
               </a>
-              <a href="#" aria-label="X (Twitter)">
+              <a href="https://x.com/" aria-label="X (Twitter)">
                 <svg viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M17.94 4H21.12L13.92 10.62L22.5 20H15.63L10.81 14.96L5.17 20H2L9.58 12.99L1.5 4H8.63L12.86 8.88L18.2 4H17.94ZM16.6 18.25H18.36L7.56 5.74H5.65L16.6 18.25Z" fill="white"/>
                 </svg>
               </a>
-              <a href="#" aria-label="Facebook">
+              <a href="https://www.facebook.com/" aria-label="Facebook">
                 <svg viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M13.5 9.5H16V6.75c-.43-.06-1.3-.18-2.3-.18-2.28 0-3.84 1.39-3.84 3.95V12H7v3.25h2.86V21h3.35v-5.75h2.76l.44-3.25H13.2v-1.19c0-.94.26-1.31 1.3-1.31Z" />
                 </svg>
