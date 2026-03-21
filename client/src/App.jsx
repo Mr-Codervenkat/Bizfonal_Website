@@ -1,4 +1,4 @@
-﻿import { useEffect, useMemo, useState } from 'react';
+﻿import { useEffect, useMemo, useRef, useState } from 'react';
 import logo from './assets/bizfonal-logo.png';
 // import RadialOrbitalTimeline from './components/RadialOrbitalTimeline';
 import htmlIcon from './assets/tech/html5.png';
@@ -86,23 +86,23 @@ const baseTechStacks = [
 const services = [
   {
     title: 'Website Development',
-    description: 'High-performance, responsive, and conversion-ready websites.'
+    description: '→ High-performance, responsive, and conversion-ready websites built with modern technologies ensuring scalability and seamless user experience.'
   },
   {
     title: 'Web Application Development',
-    description: 'Custom applications designed for speed, scale, and clarity.'
+    description: '→ Custom applications designed for speed, scale, and clarity with robust architecture and optimized performance for business growth.'
   },
   {
     title: 'Custom Software Development',
-    description: 'Secure software aligned to your unique business workflows.'
+    description: '→ Secure software aligned to your unique business workflows with advanced security standards and reliable system integration capabilities.'
   },
   {
     title: 'Mini Projects',
-    description: 'Rapid delivery for MVPs, prototypes, and innovation sprints.'
+    description: '→ Rapid delivery for MVPs, prototypes, and innovation sprints with agile development approach ensuring faster deployment and iteration cycles.'
   },
   {
-    title: 'IT Consulting',
-    description: 'Strategic guidance to optimize infrastructure and operations.'
+    title: 'SaaS Development',
+    description: '→ Scalable SaaS platforms built for modern businesses with cloud-native architecture ensuring flexibility, reliability, and long-term growth support.'
   }
 ];
 
@@ -278,7 +278,7 @@ const navLinks = [
   { label: 'About', href: '#about' },
   { label: 'Services', href: '#services' },
   { label: 'Technology Stack', href: '#tech' },
-  { label: 'Our Works', href: '#works' },
+  // { label: 'Our Works', href: '#works' },
   { label: 'Contact', href: '#contact' },
   { label: 'FAQ', href: '#faq' }
 ];
@@ -300,6 +300,8 @@ export default function App() {
 
   const techStack = useMemo(() => baseTechStack.concat(baseTechStack), []);
   const techStacks = useMemo(() => baseTechStacks.concat(baseTechStacks), []);
+  const [activeShowcaseCard, setActiveShowcaseCard] = useState(0);
+  const showcaseRef = useRef(null);
 
   useEffect(() => {
     const fullText = services[currentServiceIndex].title;
@@ -347,7 +349,7 @@ export default function App() {
   // Stagger animation for cards
   useEffect(() => {
     const staggerItems = document.querySelectorAll('.stagger-card');
-    
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -385,37 +387,40 @@ export default function App() {
     setFormState((prev) => ({ ...prev, [name]: value }));
   };
 
- const handleSubmit = (e) => {
-  e.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-  setStatus({ type: 'loading', message: 'Sending your message...' });
+    setStatus({ type: 'loading', message: 'Sending your message...' });
 
-  emailjs.send(
-    'service_4kyb5it',
-    'template_6368cvf',
-    {
-      name: formState.name,
-      phone: formState.phone,
-      email: formState.email,
-      message: formState.message
-    },
-    'iMzOaDq9sDzGnFyHL'
-  )
-  .then(() => {
-    setStatus({ type: 'success', message: 'Thanks! We will contact you soon.' });
-    setFormState({ name: '', phone: '', email: '', message: '' });
-  })
-  .catch((error) => {
-    console.error("EmailJS Error:", error);
-    setStatus({
-      type: 'error',
-      message: 'Failed to send message. Please try again.'
-    });
-  });
-};
+    emailjs.send(
+      'service_4kyb5it',
+      'template_6368cvf',
+      {
+        name: formState.name,
+        phone: formState.phone,
+        email: formState.email,
+        message: formState.message
+      },
+      'iMzOaDq9sDzGnFyHL'
+    )
+      .then(() => {
+        setStatus({ type: 'success', message: 'Thanks! We will contact you soon.' });
+        setFormState({ name: '', phone: '', email: '', message: '' });
+      })
+      .catch((error) => {
+        console.error("EmailJS Error:", error);
+        setStatus({
+          type: 'error',
+          message: 'Failed to send message. Please try again.'
+        });
+      });
+  };
 
   return (
     <div className="page">
+      {/* Animated grid background */}
+      <div className="grid-bg" aria-hidden="true"></div>
+
       {/* Aurora Background Effect */}
       <div className="aurora-bg">
         <div className="aurora-orb-1"></div>
@@ -455,9 +460,15 @@ export default function App() {
 
       <main>
         <section className="hero" aria-labelledby="hero-title">
+          {/* Floating particles */}
+          <div className="hero-particles" aria-hidden="true">
+            {[...Array(8)].map((_, i) => <span key={i} className="hero-particle" />)}
+          </div>
+          {/* Second pulse ring for layered depth */}
+          <div className="hero-ring-2" aria-hidden="true"></div>
           <div className="container hero-grid">
             <div className="hero-content reveal fade-left">
-              
+
               <h1 id="hero-title">
                 Empowering businesses with modern software and digital solutions.
               </h1>
@@ -493,11 +504,18 @@ export default function App() {
               </div>
             </div>
             <div className="hero-visual reveal fade-right">
-              <img
-                src={heroLaptop}
-                alt="Person working on a laptop illustration"
-                style={{ width: "100%", maxWidth: "600px", height: "auto" }}
-              />
+              <div className="hero-coder-wrap">
+                {/* Floating code badges */}
+                <span className="hero-badge badge-html">HTML</span>
+                <span className="hero-badge badge-react">&lt;/&gt;</span>
+                <span className="hero-badge badge-js">JS</span>
+                <span className="hero-badge badge-css">CSS</span>
+                <img
+                  src="https://media.giphy.com/media/qgQUggAC3Pfv687qPC/giphy.gif"
+                  alt="Developer coding animation"
+                  className="hero-coder-gif"
+                />
+              </div>
             </div>
           </div>
           <div className="hero-glow"></div>
@@ -505,7 +523,7 @@ export default function App() {
 
         <section className="section showcase" id="showcase" aria-labelledby="showcase-title">
           <div className="container">
-            <div className="section-title reveal">
+            <div className="section-title reveal fade-left">
               <p className="eyebrow">Product Showcase</p>
               <h2 id="showcase-title">Visual experiences that make an impact.</h2>
               <p>
@@ -513,7 +531,9 @@ export default function App() {
                 forward-thinking businesses.
               </p>
             </div>
-            <div className="showcase-grid">
+
+            {/* Desktop grid — hidden on mobile */}
+            <div className="showcase-grid showcase-grid--desktop">
               {showcaseItems.map((item) => (
                 <article className="showcase-card reveal stagger-card hover-lift" key={item.title}>
                   <div className="showcase-image">
@@ -531,6 +551,49 @@ export default function App() {
                 </article>
               ))}
             </div>
+
+            {/* Mobile vertical snap-scroll — hidden on desktop */}
+            <div className="showcase-vsnap" ref={showcaseRef}>
+              {/* Side progress dots */}
+              <div className="showcase-vdots">
+                {showcaseItems.map((_, i) => (
+                  <span
+                    key={i}
+                    className={`showcase-vdot ${activeShowcaseCard === i ? 'active' : ''}`}
+                  />
+                ))}
+              </div>
+
+              <div
+                className="showcase-vtrack"
+                onScroll={(e) => {
+                  const el = e.currentTarget;
+                  const index = Math.round(el.scrollTop / el.clientHeight);
+                  setActiveShowcaseCard(index);
+                }}
+              >
+                {showcaseItems.map((item, index) => (
+                  <div className="showcase-vslide" key={item.title}>
+                    <article className="showcase-card showcase-card-v">
+                      <div className="showcase-image">
+                        <img src={item.image} alt={`${item.title} preview`} />
+                      </div>
+                      <div className="showcase-body">
+                        <span className="showcase-card-count">{String(index + 1).padStart(2, '0')} / {String(showcaseItems.length).padStart(2, '0')}</span>
+                        <h3>{item.title}</h3>
+                        <p>{item.description}</p>
+                        <div className="showcase-tags">
+                          {item.tags.map((tag) => (
+                            <span key={tag}>{tag}</span>
+                          ))}
+                        </div>
+                      </div>
+                    </article>
+                  </div>
+                ))}
+              </div>
+            </div>
+
           </div>
         </section>
 
@@ -540,7 +603,7 @@ export default function App() {
           aria-labelledby="why-title"
         >
           <div className="container">
-            <div className="section-title reveal">
+            <div className="section-title reveal fade-right">
               <p className="eyebrow">Why Bizfonal</p>
               <h2 id="why-title">A partner focused on outcomes.</h2>
               <p>
@@ -548,7 +611,7 @@ export default function App() {
                 that makes a measurable business impact.
               </p>
             </div>
-            <div className="feature-grid">
+            <div className="feature-grid ">
               {highlights.map((item, index) => (
                 <article className="feature-card reveal stagger-card hover-lift" key={item.title} style={{ animationDelay: `${index * 100}ms` }}>
                   <h3>{item.title}</h3>
@@ -572,7 +635,7 @@ export default function App() {
 
         <section className="section" id="process" aria-labelledby="process-title">
           <div className="container">
-            <div className="section-title reveal">
+            <div className="section-title reveal fade-left">
               <p className="eyebrow">Our Process</p>
               <h2 id="process-title">Structured delivery, flexible execution.</h2>
               <p>
@@ -580,7 +643,7 @@ export default function App() {
                 on track.
               </p>
             </div>
-            
+
 
             {/* Process Grid - Always Visible */}
             <div className="process-grid">
@@ -597,9 +660,9 @@ export default function App() {
           </div>
         </section>
 
-        <section className="section" id="about" aria-labelledby="about-title">
-          <div className="container" style={{marginTop:'-80px'}}>
-            <div className="section-title reveal">
+        <section className="section showcase" id="about" aria-labelledby="about-title">
+          <div className="container" style={{ marginTop: '-80px' }}>
+            <div className="section-title reveal fade-right">
               <p className="eyebrow">About Bizfonal</p>
               <h2 id="about-title">Building future-ready businesses.</h2>
               <p>
@@ -648,7 +711,7 @@ export default function App() {
           aria-labelledby="services-title"
         >
           <div className="container">
-            <div className="section-title reveal">
+            <div className="section-title reveal fade-left">
               <p className="eyebrow">Services</p>
               <h2 id="services-title">Solutions tailored to your goals.</h2>
               <p>
@@ -669,7 +732,7 @@ export default function App() {
 
         <section className="section" id="tech" aria-labelledby="tech-title">
           <div className="container">
-            <div className="section-title reveal">
+            <div className="section-title reveal fade-right">
               <p className="eyebrow">Technology Stack</p>
               <h2 id="tech-title">Modern tools for modern solutions.</h2>
               <p>
@@ -729,7 +792,7 @@ export default function App() {
 
         <section className="section testimonials" aria-labelledby="testimonials-title">
           <div className="container">
-            <div className="section-title reveal">
+            <div className="section-title reveal fade-left">
               <p className="eyebrow">Testimonials</p>
               <h2 id="testimonials-title">Partners who trust Bizfonal.</h2>
               <p>
@@ -813,7 +876,7 @@ export default function App() {
 
         <section className="section" id="contact" aria-labelledby="contact-title">
           <div className="container">
-            <div className="section-title reveal">
+            <div className="section-title reveal fade-right">
               <p className="eyebrow">Contact</p>
               <h2 id="contact-title">Let us build something great together.</h2>
               <p>
@@ -850,7 +913,7 @@ export default function App() {
                   <input
                     type="email"
                     name="email"
-                    placeholder="you@company.com"
+                    placeholder="Your Email Address"
                     value={formState.email}
                     onChange={handleChange}
                     required
@@ -917,7 +980,7 @@ export default function App() {
 
         <section className="section alt faq" id="faq" aria-labelledby="faq-title">
           <div className="container">
-            <div className="section-title reveal">
+            <div className="section-title reveal fade-left">
               <p className="eyebrow">FAQ</p>
               <h2 id="faq-title">Answers to common questions.</h2>
               <p>Quick responses about our services and delivery approach.</p>
@@ -972,7 +1035,7 @@ export default function App() {
               </a>
               <a href="#" aria-label="X (Twitter)">
                 <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M17.94 4H21.12L13.92 10.62L22.5 20H15.63L10.81 14.96L5.17 20H2L9.58 12.99L1.5 4H8.63L12.86 8.88L18.2 4H17.94ZM16.6 18.25H18.36L7.56 5.74H5.65L16.6 18.25Z" fill="white"/>
+                  <path d="M17.94 4H21.12L13.92 10.62L22.5 20H15.63L10.81 14.96L5.17 20H2L9.58 12.99L1.5 4H8.63L12.86 8.88L18.2 4H17.94ZM16.6 18.25H18.36L7.56 5.74H5.65L16.6 18.25Z" fill="white" />
                 </svg>
               </a>
               <a href="#" aria-label="Facebook">
@@ -982,9 +1045,9 @@ export default function App() {
               </a>
               <a href="https://www.instagram.com/bizfonal.infotech/" aria-label="Instagram">
                 <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <rect x="2" y="2" width="20" height="20" rx="4.5" fill="none" stroke="white" strokeWidth="1.5"/>
-                  <circle cx="12" cy="12" r="3.5" fill="none" stroke="white" strokeWidth="1.5"/>
-                  <circle cx="18" cy="6" r="0.8" fill="white"/>
+                  <rect x="2" y="2" width="20" height="20" rx="4.5" fill="none" stroke="white" strokeWidth="1.5" />
+                  <circle cx="12" cy="12" r="3.5" fill="none" stroke="white" strokeWidth="1.5" />
+                  <circle cx="18" cy="6" r="0.8" fill="white" />
                 </svg>
               </a>
             </div>
@@ -997,11 +1060,3 @@ export default function App() {
     </div>
   );
 }
-
-
-
-
-
-
-
-
