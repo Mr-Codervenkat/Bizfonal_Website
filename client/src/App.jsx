@@ -215,22 +215,22 @@ const testimonials = [
   {
     quote:
       'Bizfonal translated our vision into a product that is fast, reliable, and loved by our users.',
-    name: 'Karthik',
-    role: 'Founder, FinEdge Labs',
+    name: 'Venkat S',
+    role: 'Founder - CEO',
     initials: 'S'
   },
   {
     quote:
-      'Their team kept us informed, moved quickly, and delivered a platform that scaled from day one.',
-    name: 'Rahul',
-    role: 'COO, LoopCart',
+      'Our team maintained clear communication, delivered rapidly, and built a platform ready to scale from day one.',
+    name: 'Yokesh',
+    role: 'COO',
     initials: 'M'
   },
   {
     quote:
       'The UI is clean, the performance is strong, and the support is proactive. Exactly what we needed.',
-    name: 'Mohana Priya',
-    role: 'Product Lead, HealthTrack',
+    name: 'Santhosh',
+    role: 'Product Lead',
     initials: 'N'
   }
 ];
