@@ -216,7 +216,7 @@ const testimonials = [
     quote:
       'Bizfonal translated our vision into a product that is fast, reliable, and loved by our users.',
     name: 'Venkat S',
-    role: 'Founder - CEO',
+    role: 'Founder & CEO',
     initials: 'S'
   },
   {
